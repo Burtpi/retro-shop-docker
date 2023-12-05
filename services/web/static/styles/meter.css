@@ -1,0 +1,29 @@
+ #strengthMeter {
+            width: 100%;
+            height: 10px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            position: relative;
+        }
+
+        #strengthBar {
+            height: 100%;
+            width: 0;
+            transition: width 0.3s;
+        }
+
+        .very-weak {
+            background-color: #ff4d4d;
+        }
+
+        .weak {
+            background-color: #ff9933;
+        }
+
+        .medium {
+            background-color: #ffd633;
+        }
+
+        .strong {
+            background-color: #33cc33;
+        }

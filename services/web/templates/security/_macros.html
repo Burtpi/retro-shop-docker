@@ -1,0 +1,59 @@
+
+
+{% macro render_field_with_errors(field) %}
+  <div class="form-floating" id="{{ field.id|default('fs-field') }}">
+    {{ field(class_="form-control", **kwargs)|safe }}
+    {{ field.label }}
+    {% if field.errors %}
+      {% for error in field.errors %}<div class="alert alert-danger alert-dismissible fade show">{{ error }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>{% endfor %}
+    {% endif %}
+  </div>
+{% endmacro %}
+
+{% macro render_checkbox_with_errors(field) %}
+  <div class="form-check my-2" id="{{ field.id|default('fs-field') }}">
+  <label class="form-check-label" for="defaultCheck1">
+    {{ field.label }} {{ field(class_="form-check-input", **kwargs)|safe }}
+  </label>
+    {% if field.errors %}
+      {% for error in field.errors %}<div class="alert alert-danger alert-dismissible fade show">{{ error }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>{% endfor %}
+    {% endif %}
+  </div>
+{% endmacro %}
+
+{% macro render_field(field) %}
+  <div class="fs-div" id="{{ field.id|default('fs-field') }}">{{ field(**kwargs)|safe }}</div>
+{% endmacro %}
+
+{% macro render_button(field) %}
+  <button class="w-100 btn btn-lg btn-dark" id="{{ field.id|default('fs-field') }}">{{ field(**kwargs)|safe }}</button>
+{% endmacro %}
+
+{% macro render_field_errors(field) %}
+  <div class="fs-div" id="{{ field.id if field else 'fs-field' }}">
+    {% if field and field.errors %}
+      {% for error in field.errors %}<div class="alert alert-danger alert-dismissible fade show">{{ error }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>{% endfor %}
+    {% endif %}
+  </div>
+{% endmacro %}
+
+{# render WTForms (>3.0) form level errors #}
+{% macro render_form_errors(form) %}
+  {% if form.form_errors %}
+    <div class="fs-div" id="fs-form-errors">
+        {% for error in field.errors %}<div class="alert alert-danger alert-dismissible fade show">{{ error }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>{% endfor %}
+    </div>
+  {% endif %}
+{% endmacro %}
+
+{% macro prop_next() -%}
+  {% if 'next' in request.args %}?next={{ request.args.next|urlencode }}{% endif %}
+{%- endmacro %}

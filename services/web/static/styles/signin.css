@@ -1,0 +1,63 @@
+html,
+body {
+  height: 100%;
+}
+
+body {
+  display: flex;
+  align-items: center;
+  padding-top: 40px;
+  padding-bottom: 40px;
+  background-color: #131516 !important;
+  color: white;
+}
+
+.form-signin {
+  max-width: 330px;
+  padding: 15px;
+  color: white;
+}
+
+.form-authenticator {
+  max-width: 600px;
+  padding: 15px;
+  color: white;
+}
+
+.form-authenticator .form-floating:focus-within {
+  z-index: 2;
+}
+
+.form-authenticator input[type="text"] {
+  margin-bottom: 10px;
+  background-color: #181A1B;
+  color: white;
+}
+
+
+.form-signin .form-floating:focus-within {
+  z-index: 2;
+}
+
+.form-signin input[type="email"] {
+  margin-bottom: 5px;
+  background-color: #181A1B;
+  color: white;
+  
+}
+.form-signin input[type="password"] {
+  margin-bottom: 10px;
+  background-color: #181A1B;
+  color: white;
+}
+.form-signin input[type="text"] {
+  margin-bottom: 10px;
+  background-color: #181A1B;
+  color: white;
+}
+.form-signin input[type="integer"] {
+  margin-bottom: 10px;
+  background-color: #181A1B;
+  color: white;
+}
+

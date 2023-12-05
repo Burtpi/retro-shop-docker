@@ -1,0 +1,209 @@
+{% extends 'header.html' %}{% block content %}
+<link href="../static/styles/checkout.css" rel="stylesheet">
+<body class="bg-body-tertiary">
+   <div class="container py-5 checkout">
+      <main>
+         <div class="row g-5">
+            <div class="col-md-5 col-lg-4 order-md-last">
+               <div class="card mb-4">
+                  <div class="card-header py-3">
+                     <h5 class="mb-0">Summary</h5>
+                  </div>
+                  {% set total_price = namespace(value=0) %}
+                  {% for product in products %}
+                  {% set total_price.value = total_price.value + product.price %}
+                  {% endfor %}
+                  <div class="card-body">
+                     <ul class="list-group list-group-flush">
+                        <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0">
+                           Products
+                           <span>${{ total_price.value }}</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center px-0">
+                           Shipping
+                           <span>Free</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 mb-3">
+                           <div>
+                              <strong>Total amount</strong>
+                              <strong>
+                                 <p class="mb-0">(including VAT)</p>
+                              </strong>
+                           </div>
+                           <span><strong>${{ total_price.value }}</strong></span>
+                        </li>
+                     </ul>
+                  </div>
+               </div>
+            </div>
+            <div class="col-md-7 col-lg-8">
+               <h4 class="mb-3">Billing address</h4>
+               <form class="needs-validation" novalidate action="{{ url_for('main.checkout') }}" method="POST">
+                  {{ form.hidden_tag() }}
+                  <div class="row g-3">
+                     <div class="col-sm-6">
+                        {{ form.fname.label(class="form-label") }}
+                        {{ form.fname(class="form-control", placeholder=form.fname.label.text) }}
+                        {% if form.fname.errors %}
+                        {% for error in form.fname.errors %}
+                        <div class="alert alert-danger alert-dismissible fade show">{{ error }}
+                           <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                        {% endfor %}
+                        {% endif %}
+                     </div>
+                     <div class="col-sm-6">
+                        {{ form.lname.label(class="form-label") }}
+                        {{ form.lname(class="form-control", placeholder=form.lname.label.text) }}
+                        {% if form.lname.errors %}
+                        {% for error in form.lname.errors %}
+                        <div class="alert alert-danger alert-dismissible fade show">{{ error }}
+                           <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                        {% endfor %}
+                        {% endif %}
+                     </div>
+                     <div class="col-12">
+                        {{ form.email.label(class="form-label") }}
+                        {{ form.email(class="form-control", placeholder=form.email.label.text) }}
+                        {% if form.email.errors %}
+                        {% for error in form.email.errors %}
+                        <div class="alert alert-danger alert-dismissible fade show">{{ error }}
+                           <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                        {% endfor %}
+                        {% endif %}
+                     </div>
+                     <div class="col-12">
+                        {{ form.address.label(class="form-label") }}
+                        {{ form.address(class="form-control", placeholder=form.address.label.text) }}
+                        {% if form.address.errors %}
+                        {% for error in field.errors %}
+                        <div class="alert alert-danger alert-dismissible fade show">{{ error }}
+                           <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                        {% endfor %}
+                        {% endif %}
+                     </div>
+                     <div class="col-12">
+                        {{ form.city.label(class="form-label") }}
+                        {{ form.city(class="form-control", placeholder=form.city.label.text) }}
+                        {% if form.city.errors %}
+                        {% for error in form.city.errors %}
+                        <div class="alert alert-danger alert-dismissible fade show">{{ error }}
+                           <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                        {% endfor %}
+                        {% endif %}
+                     </div>
+                     <div class="col-md-5">
+                        {{ form.country.label(class="form-label") }}
+                        {{ form.country(class="form-control", placeholder=form.country.label.text) }}
+                        {% if form.country.errors %}
+                        {% for error in form.country.errors %}
+                        <div class="alert alert-danger alert-dismissible fade show">{{ error }}
+                           <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                        {% endfor %}
+                        {% endif %}
+                     </div>
+                     <div class="col-md-4">
+                        {{ form.state.label(class="form-label") }}
+                        {{ form.state(class="form-control", placeholder=form.state.label.text) }}
+                        {% if form.state.errors %}
+                        {% for error in form.state.errors %}
+                        <div class="alert alert-danger alert-dismissible fade show">{{ error }}
+                           <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                        {% endfor %}
+                        {% endif %}
+                     </div>
+                     <div class="col-md-3">
+                        {{ form.zip.label(class="form-label") }}
+                        {{ form.zip(class="form-control", placeholder=form.zip.label.text) }}
+                        {% if form.zip.errors %}
+                        {% for error in form.zip.errors %}
+                        <div class="alert alert-danger alert-dismissible fade show">{{ error }}
+                           <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                        {% endfor %}
+                        {% endif %}
+                     </div>
+                     <hr class="my-4">
+                     {% if current_user.username %}
+                     <div class="form-check">
+                        <input type="checkbox" class="form-check-input" id="save-info" name="save-info">
+                        <label class="form-check-label" for="save-info">Save this information for next time</label>
+                     </div>
+                     <hr class="my-4">
+                     {% endif %}
+                     <h4 class="mb-3">Payment</h4>
+                     <div class="row gy-3">
+                        <div class="col-md-6">
+                           {{ form.cc_name.label(class="form-label") }}
+                           {{ form.cc_name(class="form-control", placeholder=form.cc_name.label.text) }}
+                           {% if form.cc_name.errors %}
+                           {% for error in form.cc_name.errors %}
+                           <div class="alert alert-danger alert-dismissible fade show">{{ error }}
+                              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                           </div>
+                           {% endfor %}
+                           {% endif %}
+                        </div>
+                        <div class="col-md-6">
+                           {{ form.cc_number.label(class="form-label") }}
+                           {{ form.cc_number(class="form-control", placeholder=form.cc_number.label.text) }}
+                           {% if form.cc_number.errors %}
+                           {% for error in form.cc_number.errors %}
+                           <div class="alert alert-danger alert-dismissible fade show">{{ error }}
+                              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                           </div>
+                           {% endfor %}
+                           {% endif %}
+                        </div>
+                        <div class="col-md-3">
+                           {{ form.cc_expiration.label(class="form-label") }}
+                           {{ form.cc_expiration(class="form-control", placeholder=form.cc_expiration.label.text) }}
+                           {% if form.cc_expiration.errors %}
+                           {% for error in form.cc_expiration.errors %}
+                           <div class="alert alert-danger alert-dismissible fade show">{{ error }}
+                              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                           </div>
+                           {% endfor %}
+                           {% endif %}
+                        </div>
+                        <div class="col-md-3">
+                           {{ form.cc_cvv.label(class="form-label") }}
+                           {{ form.cc_cvv(class="form-control", placeholder=form.cc_cvv.label.text) }}
+                           {% if form.cc_cvv.errors %}
+                           {% for error in form.cc_cvv.errors %}
+                           <div class="alert alert-danger alert-dismissible fade show">{{ error }}
+                              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                           </div>
+                           {% endfor %}
+                           {% endif %}
+                        </div>
+                     </div>
+                     <hr class="my-4">
+                        {{ form.csrf_token}}
+                  {% if form.csrf_token and form.csrf_token.errors %}
+      {% for error in form.csrf_token.errors %}<div class="alert alert-danger alert-dismissible fade show">{{ error }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>{% endfor %}
+    {% endif %}
+                     {{ form.submit(class="w-100 btn btn-primary btn-lg") }}
+                  </div>
+               </form>
+            </div>
+         </div>
+      </main>
+   </div>
+   <footer class="py-5 bg-dark">
+      <div class="container">
+         <p class="m-0 text-center text-white">Copyright &copy; Your Website 2023</p>
+      </div>
+   </footer>
+   <script src="../static/scripts/bootstrap.bundle.min.js"></script>
+   <script src="../static/scripts/checkout.js"></script>
+</body>
+{% endblock %}
