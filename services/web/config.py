@@ -22,6 +22,7 @@ app.config.update(
     SESSION_COOKIE_SAMESITE='Strict',
 )
 app.config['SECURITY_SEND_REGISTER_EMAIL'] = False
+app.config['SECURITY_SEND_PASSWORD_CHANGE_EMAIL'] = False
 app.config['SECURITY_USERNAME_ENABLE'] = True
 app.config['SECURITY_PASSWORD_LENGTH_MIN'] = 12
 app.config['SECURITY_PASSWORD_COMPLEXITY_CHECKER'] = 'zxcvbn'

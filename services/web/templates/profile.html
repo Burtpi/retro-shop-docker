@@ -24,11 +24,11 @@
                      <div class="col-md-8 align-self-center">
                         <div class="card-body text-center">
                             {% set order_id = order.order_id %}
-                            {% set consoles = OrderConsole.query.filter_by(order_id=order_id).all() %}
+                            {% set consoles = orderproduct.query.filter_by(order_id=order_id).all() %}
 
                             {% for console_relation in consoles %}
-                                {% set console_data = console_relation.console %}
-                                {% set console_full = console_data.manufacturer ~ " " ~ console_data.console_name %}
+                                {% set console_data = console_relation.product %}
+                                {% set console_full = console_data.manufacturer ~ " " ~ console_data.product_name %}
                                 <h5 class="card-title">{{ console_full }}</h5>
                             {% endfor %}
 

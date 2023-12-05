@@ -4,6 +4,7 @@ from math import ceil
 import flask_security
 from flask import render_template, request, session, redirect, url_for, Blueprint, flash
 from flask_login import login_required
+from models import OrderProduct
 
 from forms import CheckoutForm
 from query.query_functions import get_user_by_username, get_products, get_product, post_shipping_address, \
@@ -74,7 +75,7 @@ def remove_from_cart(id):
 def profile():
     user_id = get_user_by_username(flask_security.current_user.username).user_id
     orders = get_order(user_id)
-    return render_template("profile.html", orders=orders)
+    return render_template("profile.html", orders=orders, orderproduct=OrderProduct)
 
 
 @main_bp.route('/view_cart')
