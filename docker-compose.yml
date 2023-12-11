@@ -7,7 +7,7 @@ services:
     ports:
       - 5000
     env_file:
-      - ./.env.dev
+      - ./.env.test
     depends_on:
       - db
   db:
@@ -15,7 +15,7 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data/
     env_file:
-      - ./.env.db.dev
+      - ./.env.db.test
   nginx:
     build: ./services/nginx
     ports:
